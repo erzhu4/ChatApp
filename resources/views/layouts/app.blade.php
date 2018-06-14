@@ -22,6 +22,7 @@
 </head>
 <body>
     <div id="app">
+        <meta name="auth_user" content="{{ Auth::user() }}" id="auth_user_meta">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">

@@ -19907,12 +19907,16 @@ var Example = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).call(this, props));
 
-        _this.state = {
-            entries: [{
-                author: "anonymous",
-                text: "testing entry"
-            }],
+        var auth_user = null;
+        var user_str = document.getElementById("auth_user_meta").content;
 
+        if (user_str.length) {
+            auth_user = JSON.parse(user_str);
+        }
+
+        _this.state = {
+            auth_user: auth_user,
+            entries: [],
             inputValue: ""
         };
         return _this;
@@ -19928,9 +19932,12 @@ var Example = function (_React$Component) {
         value: function submitInput(event) {
             var value = this.state.inputValue;
             if (value.length == 0) return;
+
+            var user = this.state.auth_user ? this.state.auth_user.name : "anonymous";
+
             this.setState({
                 inputValue: "",
-                entries: this.state.entries.concat({ author: "anonymous", text: value })
+                entries: this.state.entries.concat({ author: user, text: value })
             });
         }
     }, {

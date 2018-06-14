@@ -6,14 +6,16 @@ export default class Example extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            entries: [
-                {
-                    author: "anonymous",
-                    text: "testing entry"
-                }
-            ],
+        let auth_user = null;
+        let user_str = document.getElementById("auth_user_meta").content;
 
+        if (user_str.length){
+            auth_user = JSON.parse(user_str);
+        }
+
+        this.state = {
+            auth_user: auth_user,
+            entries: [],
             inputValue: ""
         }
     }
@@ -25,10 +27,13 @@ export default class Example extends React.Component {
     submitInput(event){
         var value = this.state.inputValue;
         if (value.length == 0) return;
+
+        var user = this.state.auth_user ? this.state.auth_user.name : "anonymous"
+
         this.setState(
             {
                 inputValue: "", 
-                entries: this.state.entries.concat({author: "anonymous", text: value})
+                entries: this.state.entries.concat({author: user, text: value})
             }
         );    
     }
