@@ -9,17 +9,28 @@ export default class Example extends React.Component {
         this.state = {
             entries: [
                 {
-                    author: "someone",
+                    author: "anonymous",
                     text: "testing entry"
                 }
             ],
 
-            inputValue: "test"
+            inputValue: ""
         }
     }
 
-    handleInputText(val){
-        console.log(val);
+    handleInputText(event){
+        this.setState({inputValue: event.target.value});
+    }
+
+    submitInput(event){
+        var value = this.state.inputValue;
+        if (value.length == 0) return;
+        this.setState(
+            {
+                inputValue: "", 
+                entries: this.state.entries.concat({author: "anonymous", text: value})
+            }
+        );    
     }
 
     render() {
@@ -41,9 +52,9 @@ export default class Example extends React.Component {
                                 </ul>
                             </div>
                             <div className="card-body">
-                                <div className="col-md-12"><textarea name="input-text" value={this.state.inputValue} onChange={this.handleInputText(e.target.value)} className="form-control"></textarea></div>
+                                <div className="col-md-12"><textarea name="input-text" value={this.state.inputValue} onChange={this.handleInputText.bind(this)} className="form-control"></textarea></div>
                                 <br />
-                                <div className="col-md-12"><button type="submit" className="btn btn-primary">Submit</button></div>
+                                <div className="col-md-12"><button type="submit" onClick={this.submitInput.bind(this)} className="btn btn-primary">Submit</button></div>
                             </div>
                         </div>
                     </div>

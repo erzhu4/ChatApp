@@ -19909,19 +19909,29 @@ var Example = function (_React$Component) {
 
         _this.state = {
             entries: [{
-                author: "someone",
+                author: "anonymous",
                 text: "testing entry"
             }],
 
-            inputValue: "test"
+            inputValue: ""
         };
         return _this;
     }
 
     _createClass(Example, [{
         key: 'handleInputText',
-        value: function handleInputText(val) {
-            console.log(val);
+        value: function handleInputText(event) {
+            this.setState({ inputValue: event.target.value });
+        }
+    }, {
+        key: 'submitInput',
+        value: function submitInput(event) {
+            var value = this.state.inputValue;
+            if (value.length == 0) return;
+            this.setState({
+                inputValue: "",
+                entries: this.state.entries.concat({ author: "anonymous", text: value })
+            });
         }
     }, {
         key: 'render',
@@ -19969,7 +19979,7 @@ var Example = function (_React$Component) {
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'div',
                                     { className: 'col-md-12' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { name: 'input-text', value: this.state.inputValue, onChange: this.handleInputText(e.target.value), className: 'form-control' })
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { name: 'input-text', value: this.state.inputValue, onChange: this.handleInputText.bind(this), className: 'form-control' })
                                 ),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -19977,7 +19987,7 @@ var Example = function (_React$Component) {
                                     { className: 'col-md-12' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'button',
-                                        { type: 'submit', className: 'btn btn-primary' },
+                                        { type: 'submit', onClick: this.submitInput.bind(this), className: 'btn btn-primary' },
                                         'Submit'
                                     )
                                 )
