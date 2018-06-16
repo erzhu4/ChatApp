@@ -33,8 +33,4 @@ class MessagePushed implements ShouldBroadcast
     {
         return new Channel('public-chat-channel');
     }
-
-    // public function broadcastAs() {
-    //     return 'MessagePushed';
-    // }
 }

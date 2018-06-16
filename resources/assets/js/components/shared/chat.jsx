@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 export default class Chat extends React.Component {
 
@@ -7,6 +8,7 @@ export default class Chat extends React.Component {
 
         this.state = {
             user: props.user,
+            postUrl: props.postUrl,
             entries: [],
             inputValue: ""
         }
@@ -22,12 +24,14 @@ export default class Chat extends React.Component {
 
         var user = this.state.user ? this.state.user.name : "anonymous"
 
+        axios.post(this.state.postUrl, {author: user, text: value});
+
         this.setState(
             {
                 inputValue: "", 
                 entries: this.state.entries.concat({author: user, text: value})
             }
-        );    
+        );
     }
 
     render() {

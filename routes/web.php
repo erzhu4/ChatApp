@@ -25,6 +25,7 @@ Auth::routes();
 Route::get('/test', 'TestController@index')->name('test');
 
 Route::get('/public_chat', 'PublicChatController@index')->name('public-chat');
+Route::post('/public_chat/store', 'PublicChatController@store')->name('public-chat-store');
 
 Route::get('/testEvent', function(){
 	event(new MessagePushed("derp"));

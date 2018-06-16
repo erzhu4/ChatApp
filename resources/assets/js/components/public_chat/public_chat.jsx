@@ -39,7 +39,7 @@ export default class PublicChat extends React.Component {
 
         return (
             <div className="container">
-                <Chat user={this.state.auth_user} />
+                <Chat user={this.state.auth_user} postUrl={"/public_chat/store"} />
             </div>
         );
     }
