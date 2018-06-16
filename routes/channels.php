@@ -15,7 +15,6 @@
 //     return (int) $user->id === (int) $id;
 // });
 
-Broadcast::channel('public-channel', function () {
-	echo "hello";
+Broadcast::channel('public-chat-channel', function () {
     return true;
 });

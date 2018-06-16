@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MessagePushed
+class MessagePushed implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -31,8 +31,7 @@ class MessagePushed
      */
     public function broadcastOn()
     {
-        echo "oh shit";
-        return new PrivateChannel('public-channel');
+        return new Channel('public-chat-channel');
     }
 
     // public function broadcastAs() {
