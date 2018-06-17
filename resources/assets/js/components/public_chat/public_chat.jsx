@@ -27,6 +27,7 @@ export default class PublicChat extends React.Component {
                 <Chat 
                     user={this.state.auth_user} 
                     postUrl={"/public_chat/store"}
+                    hostName={window.location.hostname}
                     channel={"public-chat-channel"}
                     eventName={"MessagePushed"}
                     port={":3000"}

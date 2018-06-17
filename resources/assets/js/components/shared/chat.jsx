@@ -19,7 +19,7 @@ export default class Chat extends React.Component {
         if (typeof io !== 'undefined') {
             window.Echo = new Echo({
                 broadcaster: 'socket.io',
-                host: window.location.hostname + props.port
+                host: props.hostName + props.port
             });
             window.Echo.channel(props.channel).listen(props.eventName, function (data) {
                 let entry = data.data;

@@ -25029,6 +25029,7 @@ var PublicChat = function (_React$Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__shared_chat_jsx__["a" /* default */], {
                     user: this.state.auth_user,
                     postUrl: "/public_chat/store",
+                    hostName: window.location.hostname,
                     channel: "public-chat-channel",
                     eventName: "MessagePushed",
                     port: ":3000"
@@ -25090,7 +25091,7 @@ var Chat = function (_React$Component) {
         if (typeof io !== 'undefined') {
             window.Echo = new __WEBPACK_IMPORTED_MODULE_2_laravel_echo___default.a({
                 broadcaster: 'socket.io',
-                host: window.location.hostname + props.port
+                host: props.hostName + props.port
             });
             window.Echo.channel(props.channel).listen(props.eventName, function (data) {
                 var entry = data.data;
