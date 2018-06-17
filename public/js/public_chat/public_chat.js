@@ -24985,8 +24985,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_chat_jsx__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_laravel_echo__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_laravel_echo__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24998,21 +24996,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
-
-window.io = __webpack_require__(83);
-
-if (typeof io !== 'undefined') {
-    window.Echo = new __WEBPACK_IMPORTED_MODULE_3_laravel_echo___default.a({
-        broadcaster: 'socket.io',
-        host: window.location.hostname + ':3000'
-    });
-    window.Echo.channel('public-chat-channel').listen('MessagePushed', function (d) {
-        console.log("I HEARD IT!!!");
-    });
-} else {
-    console.log("larave echo server is not running");
-}
 
 var PublicChat = function (_React$Component) {
     _inherits(PublicChat, _React$Component);
@@ -25032,6 +25015,7 @@ var PublicChat = function (_React$Component) {
         _this.state = {
             auth_user: auth_user
         };
+
         return _this;
     }
 
@@ -25042,7 +25026,13 @@ var PublicChat = function (_React$Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'container' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__shared_chat_jsx__["a" /* default */], { user: this.state.auth_user, postUrl: "/public_chat/store" })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__shared_chat_jsx__["a" /* default */], {
+                    user: this.state.auth_user,
+                    postUrl: "/public_chat/store",
+                    channel: "public-chat-channel",
+                    eventName: "MessagePushed",
+                    port: ":3000"
+                })
             );
         }
     }]);
@@ -25066,6 +25056,8 @@ if (document.getElementById('chat-view')) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_laravel_echo__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_laravel_echo__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25077,6 +25069,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+window.io = __webpack_require__(83);
+
 var Chat = function (_React$Component) {
     _inherits(Chat, _React$Component);
 
@@ -25084,6 +25078,22 @@ var Chat = function (_React$Component) {
         _classCallCheck(this, Chat);
 
         var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
+
+        var theComponent = _this;
+        if (typeof io !== 'undefined') {
+            window.Echo = new __WEBPACK_IMPORTED_MODULE_2_laravel_echo___default.a({
+                broadcaster: 'socket.io',
+                host: window.location.hostname + props.port
+            });
+            window.Echo.channel(props.channel).listen(props.eventName, function (data) {
+                var entry = data.data;
+                theComponent.setState({
+                    entries: theComponent.state.entries.concat({ author: entry.author, text: entry.text })
+                });
+            });
+        } else {
+            console.log("larave echo server is not running");
+        }
 
         _this.state = {
             user: props.user,
@@ -25110,8 +25120,8 @@ var Chat = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(this.state.postUrl, { author: user, text: value });
 
             this.setState({
-                inputValue: "",
-                entries: this.state.entries.concat({ author: user, text: value })
+                inputValue: ""
+                // entries: this.state.entries.concat({author: user, text: value})
             });
         }
     }, {

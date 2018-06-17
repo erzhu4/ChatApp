@@ -1,22 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Chat from '../shared/chat.jsx';
-import Echo from "laravel-echo"
-
-window.io = require('socket.io-client');
-
-if (typeof io !== 'undefined') {
-    window.Echo = new Echo({
-        broadcaster: 'socket.io',
-        host: window.location.hostname + ':3000'
-    });
-    window.Echo.channel('public-chat-channel').listen('MessagePushed', function (d) {
-        console.log("I HEARD IT!!!");
-    });
-
-} else {
-    console.log("larave echo server is not running");
-}
 
 export default class PublicChat extends React.Component {
 
@@ -32,14 +16,21 @@ export default class PublicChat extends React.Component {
 
         this.state = {
             auth_user: auth_user
-        }
+        };
+
     }
 
     render() {
 
         return (
             <div className="container">
-                <Chat user={this.state.auth_user} postUrl={"/public_chat/store"} />
+                <Chat 
+                    user={this.state.auth_user} 
+                    postUrl={"/public_chat/store"}
+                    channel={"public-chat-channel"}
+                    eventName={"MessagePushed"}
+                    port={":3000"}
+                />
             </div>
         );
     }

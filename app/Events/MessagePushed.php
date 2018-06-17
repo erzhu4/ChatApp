@@ -14,6 +14,8 @@ class MessagePushed implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $data;
+
     /**
      * Create a new event instance.
      *
@@ -21,7 +23,7 @@ class MessagePushed implements ShouldBroadcast
      */
     public function __construct($params)
     {
-        $this->params = $params;
+        $this->data = $params;
     }
 
     /**

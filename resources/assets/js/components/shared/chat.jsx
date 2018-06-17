@@ -1,10 +1,30 @@
 import React from 'react';
 import axios from 'axios';
+import Echo from "laravel-echo";
+window.io = require('socket.io-client');
 
 export default class Chat extends React.Component {
 
     constructor(props){
         super(props);
+        var theComponent = this;
+        if (typeof io !== 'undefined') {
+            window.Echo = new Echo({
+                broadcaster: 'socket.io',
+                host: window.location.hostname + props.port
+            });
+            window.Echo.channel(props.channel).listen(props.eventName, function (data) {
+                let entry = data.data;
+                theComponent.setState(
+                    {
+                        entries: theComponent.state.entries.concat({author: entry.author, text: entry.text})
+                    }
+                );
+            });
+
+        } else {
+            console.log("larave echo server is not running");
+        }
 
         this.state = {
             user: props.user,
@@ -28,8 +48,8 @@ export default class Chat extends React.Component {
 
         this.setState(
             {
-                inputValue: "", 
-                entries: this.state.entries.concat({author: user, text: value})
+                inputValue: ""
+                // entries: this.state.entries.concat({author: user, text: value})
             }
         );
     }
