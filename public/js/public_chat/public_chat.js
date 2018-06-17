@@ -25032,7 +25032,7 @@ var PublicChat = function (_React$Component) {
                     hostName: window.location.hostname,
                     channel: "public-chat-channel",
                     eventName: "MessagePushed",
-                    port: ":3000"
+                    port: ":6001"
                 })
             );
         }
