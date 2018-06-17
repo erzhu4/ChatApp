@@ -25093,12 +25093,8 @@ var Chat = function (_React$Component) {
                 broadcaster: 'socket.io',
                 host: props.hostName + props.port
             });
-            window.Echo.channel(props.channel).listen(props.eventName, function (data) {
-                var entry = data.data;
-                this.setState({
-                    entries: this.state.entries.concat({ author: entry.author, text: entry.text })
-                });
-            }.bind(_this));
+
+            window.Echo.channel(props.channel).listen(props.eventName, _this.messageReceived.bind(_this));
 
             _this.state.ioValid = true;
         } else {
@@ -25108,6 +25104,16 @@ var Chat = function (_React$Component) {
     }
 
     _createClass(Chat, [{
+        key: 'messageReceived',
+        value: function messageReceived(response) {
+            var data = response.data;
+            if (data.socketId != window.Echo.socketId()) {
+                this.setState({
+                    entries: this.state.entries.concat({ author: data.author, text: data.text })
+                });
+            }
+        }
+    }, {
         key: 'submitInput',
         value: function submitInput(event) {
             var value = this.state.inputValue;
@@ -25115,12 +25121,14 @@ var Chat = function (_React$Component) {
 
             var user = this.state.user ? this.state.user.name : "anonymous";
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(this.state.postUrl, { author: user, text: value });
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(this.state.postUrl, { author: user, text: value, socketId: window.Echo.socketId(), test: "test" });
 
-            this.setState({
-                inputValue: ""
-                // entries: this.state.entries.concat({author: user, text: value})
-            });
+            var newState = {
+                inputValue: "",
+                entries: this.state.entries.concat({ author: user, text: this.state.inputValue })
+            };
+
+            this.setState(newState);
         }
     }, {
         key: 'handleInputText',

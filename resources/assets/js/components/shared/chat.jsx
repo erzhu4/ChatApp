@@ -21,19 +21,24 @@ export default class Chat extends React.Component {
                 broadcaster: 'socket.io',
                 host: props.hostName + props.port
             });
-            window.Echo.channel(props.channel).listen(props.eventName, function (data) {
-                let entry = data.data;
-                this.setState(
-                    {
-                        entries: this.state.entries.concat({author: entry.author, text: entry.text})
-                    }
-                );
-            }.bind(this));
+
+            window.Echo.channel(props.channel).listen(props.eventName, this.messageReceived.bind(this));
 
             this.state.ioValid = true;
 
         } else {
             console.log("larave echo server is not running");
+        }
+    }
+
+    messageReceived(response){
+        let data = response.data;
+        if (data.socketId != window.Echo.socketId()){
+            this.setState(
+                {
+                    entries: this.state.entries.concat({author: data.author, text: data.text})
+                }
+            );
         }
     }
 
@@ -43,14 +48,14 @@ export default class Chat extends React.Component {
 
         var user = this.state.user ? this.state.user.name : "anonymous"
 
-        axios.post(this.state.postUrl, {author: user, text: value});
+        axios.post(this.state.postUrl, {author: user, text: value, socketId: window.Echo.socketId(), test: "test"});
 
-        this.setState(
-            {
-                inputValue: ""
-                // entries: this.state.entries.concat({author: user, text: value})
-            }
-        );
+        var newState = {
+            inputValue: "",
+            entries: this.state.entries.concat({author: user, text: this.state.inputValue})
+        };
+
+        this.setState(newState);
     }
 
     handleInputText(event){
