@@ -25079,7 +25079,14 @@ var Chat = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
 
-        var theComponent = _this;
+        _this.state = {
+            user: props.user,
+            postUrl: props.postUrl,
+            entries: [],
+            inputValue: "",
+            ioValid: false
+        };
+
         if (typeof io !== 'undefined') {
             window.Echo = new __WEBPACK_IMPORTED_MODULE_2_laravel_echo___default.a({
                 broadcaster: 'socket.io',
@@ -25087,33 +25094,23 @@ var Chat = function (_React$Component) {
             });
             window.Echo.channel(props.channel).listen(props.eventName, function (data) {
                 var entry = data.data;
-                theComponent.setState({
-                    entries: theComponent.state.entries.concat({ author: entry.author, text: entry.text })
+                this.setState({
+                    entries: this.state.entries.concat({ author: entry.author, text: entry.text })
                 });
-            });
+            }.bind(_this));
+
+            _this.state.ioValid = true;
         } else {
             console.log("larave echo server is not running");
         }
-
-        _this.state = {
-            user: props.user,
-            postUrl: props.postUrl,
-            entries: [],
-            inputValue: ""
-        };
         return _this;
     }
 
     _createClass(Chat, [{
-        key: 'handleInputText',
-        value: function handleInputText(event) {
-            this.setState({ inputValue: event.target.value });
-        }
-    }, {
         key: 'submitInput',
         value: function submitInput(event) {
             var value = this.state.inputValue;
-            if (value.length == 0) return;
+            if (value.length == 0 || !this.state.ioValid) return;
 
             var user = this.state.user ? this.state.user.name : "anonymous";
 
@@ -25123,6 +25120,11 @@ var Chat = function (_React$Component) {
                 inputValue: ""
                 // entries: this.state.entries.concat({author: user, text: value})
             });
+        }
+    }, {
+        key: 'handleInputText',
+        value: function handleInputText(event) {
+            this.setState({ inputValue: event.target.value });
         }
     }, {
         key: 'render',

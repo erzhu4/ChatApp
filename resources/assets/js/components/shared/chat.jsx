@@ -7,7 +7,15 @@ export default class Chat extends React.Component {
 
     constructor(props){
         super(props);
-        var theComponent = this;
+
+        this.state = {
+            user: props.user,
+            postUrl: props.postUrl,
+            entries: [],
+            inputValue: "",
+            ioValid: false
+        };
+
         if (typeof io !== 'undefined') {
             window.Echo = new Echo({
                 broadcaster: 'socket.io',
@@ -15,32 +23,23 @@ export default class Chat extends React.Component {
             });
             window.Echo.channel(props.channel).listen(props.eventName, function (data) {
                 let entry = data.data;
-                theComponent.setState(
+                this.setState(
                     {
-                        entries: theComponent.state.entries.concat({author: entry.author, text: entry.text})
+                        entries: this.state.entries.concat({author: entry.author, text: entry.text})
                     }
                 );
-            });
+            }.bind(this));
+
+            this.state.ioValid = true;
 
         } else {
             console.log("larave echo server is not running");
         }
-
-        this.state = {
-            user: props.user,
-            postUrl: props.postUrl,
-            entries: [],
-            inputValue: ""
-        }
-    }
-
-    handleInputText(event){
-        this.setState({inputValue: event.target.value});
     }
 
     submitInput(event){
         var value = this.state.inputValue;
-        if (value.length == 0) return;
+        if (value.length == 0 || !this.state.ioValid) return;
 
         var user = this.state.user ? this.state.user.name : "anonymous"
 
@@ -52,6 +51,10 @@ export default class Chat extends React.Component {
                 // entries: this.state.entries.concat({author: user, text: value})
             }
         );
+    }
+
+    handleInputText(event){
+        this.setState({inputValue: event.target.value});
     }
 
     render() {
