@@ -13,8 +13,7 @@ use App\Events\MessagePushed;
 |
 */
 
-Route::get('/', 'PublicChatController@index')->name('home');
-Route::get('/public_chat', 'PublicChatController@index')->name('public-chat');
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 

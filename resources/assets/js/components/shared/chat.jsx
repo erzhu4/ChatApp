@@ -85,8 +85,7 @@ export default class Chat extends React.Component {
         this.setState({tempUser: user});    
     }
 
-    render() {
-
+    render(){
         var entriesList = this.state.entries.map((el, idx) => {
             return <li key={idx}>{el.author.name}: {el.text}</li>
         });

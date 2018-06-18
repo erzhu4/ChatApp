@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Chat from '../shared/chat.jsx';
+import Chat from './shared/chat.jsx';
 
-export default class PublicChat extends React.Component {
+export default class MainChatComponent extends React.Component {
 
     constructor(props){
         super(props);
@@ -51,5 +51,5 @@ export default class PublicChat extends React.Component {
 }
 
 if (document.getElementById('chat-view')) {
-    ReactDOM.render(<PublicChat />, document.getElementById('chat-view'));
+    ReactDOM.render(<MainChatComponent />, document.getElementById('chat-view'));
 }

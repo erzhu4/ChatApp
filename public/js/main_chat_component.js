@@ -24997,13 +24997,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var PublicChat = function (_React$Component) {
-    _inherits(PublicChat, _React$Component);
+var MainChatComponent = function (_React$Component) {
+    _inherits(MainChatComponent, _React$Component);
 
-    function PublicChat(props) {
-        _classCallCheck(this, PublicChat);
+    function MainChatComponent(props) {
+        _classCallCheck(this, MainChatComponent);
 
-        var _this = _possibleConstructorReturn(this, (PublicChat.__proto__ || Object.getPrototypeOf(PublicChat)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (MainChatComponent.__proto__ || Object.getPrototypeOf(MainChatComponent)).call(this, props));
 
         var auth_user = null;
         var user_str = document.getElementById("auth_user_meta").content;
@@ -25019,7 +25019,7 @@ var PublicChat = function (_React$Component) {
         return _this;
     }
 
-    _createClass(PublicChat, [{
+    _createClass(MainChatComponent, [{
         key: 'render',
         value: function render() {
             var chatListView = "Log in now to see list of all chats!";
@@ -25057,14 +25057,14 @@ var PublicChat = function (_React$Component) {
         }
     }]);
 
-    return PublicChat;
+    return MainChatComponent;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (PublicChat);
+/* harmony default export */ __webpack_exports__["default"] = (MainChatComponent);
 
 
 if (document.getElementById('chat-view')) {
-    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(PublicChat, null), document.getElementById('chat-view'));
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(MainChatComponent, null), document.getElementById('chat-view'));
 }
 
 /***/ }),
@@ -25181,7 +25181,6 @@ var Chat = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-
             var entriesList = this.state.entries.map(function (el, idx) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
