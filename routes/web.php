@@ -13,19 +13,15 @@ use App\Events\MessagePushed;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index')->name('home2');
-
-Route::get('/derp', function(){
-	return "derp route";
-});
+Route::get('/', 'PublicChatController@index')->name('home');
+Route::get('/public_chat', 'PublicChatController@index')->name('public-chat');
 
 Auth::routes();
 
-Route::get('/test', 'TestController@index')->name('test');
-
-Route::get('/public_chat', 'PublicChatController@index')->name('public-chat');
 Route::post('/public_chat/store', 'PublicChatController@store')->name('public-chat-store');
+
+
+Route::get('/test', 'TestController@index')->name('test');
 
 Route::get('/testEvent', function(){
 	event(new MessagePushed("derp"));
