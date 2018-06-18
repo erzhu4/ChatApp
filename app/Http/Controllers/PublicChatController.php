@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Events\MessagePushed;
+use App\Events\PublicMessagePushed;
 
 class PublicChatController extends Controller
 {
@@ -29,6 +29,6 @@ class PublicChatController extends Controller
     public function store(Request $request)
     {
         $params = $request->all();
-        event(new MessagePushed($params));
+        event(new PublicMessagePushed($params));
     }
 }

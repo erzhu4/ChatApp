@@ -5639,7 +5639,7 @@ var MainChatComponent = function (_React$Component) {
                             postUrl: '/public_chat/store',
                             hostName: window.location.hostname,
                             channel: 'public-chat-channel',
-                            eventName: 'MessagePushed',
+                            eventName: 'PublicMessagePushed',
                             port: ':6001',
                             name: 'Public Chat'
                         })
