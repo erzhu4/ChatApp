@@ -25183,19 +25183,23 @@ var Chat = function (_React$Component) {
         value: function getEntriesList() {
             var list = this.state.entries.map(function (el, idx) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'li',
+                    'div',
                     { key: idx },
-                    el.author.name,
-                    ': ',
-                    el.text
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { style: { fontWeight: 'bold' } },
+                        el.author.name,
+                        ': '
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        null,
+                        el.text
+                    )
                 );
             });
 
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'ul',
-                null,
-                list
-            );
+            return list;
         }
     }, {
         key: 'render',

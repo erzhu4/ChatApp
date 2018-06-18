@@ -89,10 +89,10 @@ export default class Chat extends React.Component {
 
     getEntriesList(){
         var list = this.state.entries.map((el, idx) => {
-            return <li key={idx}>{el.author.name}: {el.text}</li>
+            return <div key={idx}><span style={{fontWeight: 'bold'}}>{el.author.name}: </span><span>{el.text}</span></div>
         });
 
-        return <ul>{list}</ul>
+        return list;
     }
 
     render(){
