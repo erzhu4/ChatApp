@@ -21,17 +21,30 @@ export default class PublicChat extends React.Component {
     }
 
     render() {
+        var chatListView = "Log in now to see list of all chats!";
+
+        if (this.state.auth_user){
+            chatListView = "***List of Chats*****";
+        }
 
         return (
             <div className="container">
-                <Chat 
-                    user={this.state.auth_user} 
-                    postUrl={"/public_chat/store"}
-                    hostName={window.location.hostname}
-                    channel={"public-chat-channel"}
-                    eventName={"MessagePushed"}
-                    port={":6001"}
-                />
+                <div className="row">
+                    <div className="col-md-8">
+                        <Chat 
+                            user={this.state.auth_user} 
+                            postUrl="/public_chat/store"
+                            hostName={window.location.hostname}
+                            channel="public-chat-channel"
+                            eventName="MessagePushed"
+                            port=":6001"
+                            name="Public Chat"
+                        />
+                    </div>
+                    <div className="col-md-4">
+                        {chatListView}
+                    </div>
+                </div>
             </div>
         );
     }

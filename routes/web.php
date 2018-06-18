@@ -20,6 +20,12 @@ Auth::routes();
 
 Route::post('/public_chat/store', 'PublicChatController@store')->name('public-chat-store');
 
+// chat
+Route::get('/chat', 'ChatController@index');
+Route::get('/chat/create', 'ChatController@create')->middleware('auth');
+Route::post('/chat/store', 'ChatController@store')->middleware('auth');
+//end chat
+
 
 Route::get('/test', 'TestController@index')->name('test');
 

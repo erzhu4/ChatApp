@@ -13,6 +13,7 @@ export default class Chat extends React.Component {
             postUrl: props.postUrl,
             entries: [],
             inputValue: "",
+            name: props.name ? props.name : "Chat",
             ioValid: false
         };
 
@@ -69,10 +70,10 @@ export default class Chat extends React.Component {
         });
 
         return (
-            <div className="row justify-content-center">
-                <div className="col-md-8">
+            <div className="row">
+                <div className="col-md-12">
                     <div className="card">
-                        <div className="card-header">Chat Time!</div>
+                        <div className="card-header">{this.state.name}</div>
 
                         <div className="card-body">
                             <ul>

@@ -25022,18 +25022,37 @@ var PublicChat = function (_React$Component) {
     _createClass(PublicChat, [{
         key: 'render',
         value: function render() {
+            var chatListView = "Log in now to see list of all chats!";
+
+            if (this.state.auth_user) {
+                chatListView = "***List of Chats*****";
+            }
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'container' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__shared_chat_jsx__["a" /* default */], {
-                    user: this.state.auth_user,
-                    postUrl: "/public_chat/store",
-                    hostName: window.location.hostname,
-                    channel: "public-chat-channel",
-                    eventName: "MessagePushed",
-                    port: ":6001"
-                })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-md-8' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__shared_chat_jsx__["a" /* default */], {
+                            user: this.state.auth_user,
+                            postUrl: '/public_chat/store',
+                            hostName: window.location.hostname,
+                            channel: 'public-chat-channel',
+                            eventName: 'MessagePushed',
+                            port: ':6001',
+                            name: 'Public Chat'
+                        })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-md-4' },
+                        chatListView
+                    )
+                )
             );
         }
     }]);
@@ -25085,6 +25104,7 @@ var Chat = function (_React$Component) {
             postUrl: props.postUrl,
             entries: [],
             inputValue: "",
+            name: props.name ? props.name : "Chat",
             ioValid: false
         };
 
@@ -25151,17 +25171,17 @@ var Chat = function (_React$Component) {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'row justify-content-center' },
+                { className: 'row' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'col-md-8' },
+                    { className: 'col-md-12' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'card' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'card-header' },
-                            'Chat Time!'
+                            this.state.name
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
