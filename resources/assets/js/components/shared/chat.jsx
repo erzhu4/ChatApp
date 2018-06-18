@@ -14,6 +14,10 @@ export default class Chat extends React.Component {
             entries: [],
             inputValue: "",
             name: props.name ? props.name : "Chat",
+            tempUser: {
+                name: null
+            },
+            errorMessage: null,
             ioValid: false
         };
 
@@ -45,10 +49,22 @@ export default class Chat extends React.Component {
 
     submitInput(event){
         var value = this.state.inputValue;
+
+        // check input length
         if (value.length == 0 || !this.state.ioValid) return;
 
-        var user = this.state.user ? this.state.user.name : "anonymous"
+        //determine what the user is
+        var user = this.state.user ? this.state.user : this.state.tempUser;
 
+        //validate user
+        if (!user.name || user.name.length < 1){
+            this.setState({errorMessage: "Please identify with a name before sending a message!"});
+            return;
+        } else {
+            this.setState({errorMessage: null});
+        }
+
+        //make the post request
         axios.post(this.state.postUrl, {author: user, text: value, socketId: window.Echo.socketId(), test: "test"});
 
         var newState = {
@@ -63,11 +79,25 @@ export default class Chat extends React.Component {
         this.setState({inputValue: event.target.value});
     }
 
+    handleUserNameChange(event){
+        var user = this.state.tempUser;
+        user.name = event.target.value;
+        this.setState({tempUser: user});    
+    }
+
     render() {
 
         var entriesList = this.state.entries.map((el, idx) => {
-            return <li key={idx}>{el.author}: {el.text}</li>
+            return <li key={idx}>{el.author.name}: {el.text}</li>
         });
+
+        var userSetup;
+
+        if (this.state.user){
+            userSetup = <label>Logged in as: {this.state.user.name}</label>;
+        } else {
+            userSetup = <label>Your Name: <input className="form-control" onChange={this.handleUserNameChange.bind(this)} /></label>;
+        }
 
         return (
             <div className="row">
@@ -81,9 +111,16 @@ export default class Chat extends React.Component {
                             </ul>
                         </div>
                         <div className="card-body">
-                            <div className="col-md-12"><textarea name="input-text" value={this.state.inputValue} onChange={this.handleInputText.bind(this)} className="form-control"></textarea></div>
-                            <br />
-                            <div className="col-md-12"><button type="submit" onClick={this.submitInput.bind(this)} className="btn btn-primary">Submit</button></div>
+                            <div style={{color:'red'}}>{this.state.errorMessage}</div>
+                            <div className="row">
+                                <div className="col-md-2">
+                                    {userSetup}
+                                </div>
+                                <div className="col-md-8">
+                                    <textarea name="input-text" value={this.state.inputValue} onChange={this.handleInputText.bind(this)} className="form-control" placeholder="Message...."></textarea>
+                                </div>
+                                <div className="col-md-2"><button type="submit" onClick={this.submitInput.bind(this)} className="btn btn-primary">Submit</button></div>
+                            </div>
                         </div>
                     </div>
                 </div>

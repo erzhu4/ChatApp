@@ -25105,6 +25105,10 @@ var Chat = function (_React$Component) {
             entries: [],
             inputValue: "",
             name: props.name ? props.name : "Chat",
+            tempUser: {
+                name: null
+            },
+            errorMessage: null,
             ioValid: false
         };
 
@@ -25137,10 +25141,22 @@ var Chat = function (_React$Component) {
         key: 'submitInput',
         value: function submitInput(event) {
             var value = this.state.inputValue;
+
+            // check input length
             if (value.length == 0 || !this.state.ioValid) return;
 
-            var user = this.state.user ? this.state.user.name : "anonymous";
+            //determine what the user is
+            var user = this.state.user ? this.state.user : this.state.tempUser;
 
+            //validate user
+            if (!user.name || user.name.length < 1) {
+                this.setState({ errorMessage: "Please identify with a name before sending a message!" });
+                return;
+            } else {
+                this.setState({ errorMessage: null });
+            }
+
+            //make the post request
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(this.state.postUrl, { author: user, text: value, socketId: window.Echo.socketId(), test: "test" });
 
             var newState = {
@@ -25156,6 +25172,13 @@ var Chat = function (_React$Component) {
             this.setState({ inputValue: event.target.value });
         }
     }, {
+        key: 'handleUserNameChange',
+        value: function handleUserNameChange(event) {
+            var user = this.state.tempUser;
+            user.name = event.target.value;
+            this.setState({ tempUser: user });
+        }
+    }, {
         key: 'render',
         value: function render() {
 
@@ -25163,11 +25186,29 @@ var Chat = function (_React$Component) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
                     { key: idx },
-                    el.author,
+                    el.author.name,
                     ': ',
                     el.text
                 );
             });
+
+            var userSetup;
+
+            if (this.state.user) {
+                userSetup = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    'Logged in as: ',
+                    this.state.user.name
+                );
+            } else {
+                userSetup = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    'Your Name: ',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'form-control', onChange: this.handleUserNameChange.bind(this) })
+                );
+            }
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
@@ -25197,17 +25238,30 @@ var Chat = function (_React$Component) {
                             { className: 'card-body' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { className: 'col-md-12' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { name: 'input-text', value: this.state.inputValue, onChange: this.handleInputText.bind(this), className: 'form-control' })
+                                { style: { color: 'red' } },
+                                this.state.errorMessage
                             ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { className: 'col-md-12' },
+                                { className: 'row' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'button',
-                                    { type: 'submit', onClick: this.submitInput.bind(this), className: 'btn btn-primary' },
-                                    'Submit'
+                                    'div',
+                                    { className: 'col-md-2' },
+                                    userSetup
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'col-md-8' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { name: 'input-text', value: this.state.inputValue, onChange: this.handleInputText.bind(this), className: 'form-control', placeholder: 'Message....' })
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'col-md-2' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'button',
+                                        { type: 'submit', onClick: this.submitInput.bind(this), className: 'btn btn-primary' },
+                                        'Submit'
+                                    )
                                 )
                             )
                         )
