@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Echo from "laravel-echo";
-window.io = require('socket.io-client');
 
 export default class Chat extends React.Component {
 
@@ -18,17 +17,19 @@ export default class Chat extends React.Component {
             tempUser: {
                 name: null
             },
+            echo: null,
             errorMessage: null,
             ioValid: false
         };
 
+        //init the socket connection
         if (typeof io !== 'undefined') {
-            window.Echo = new Echo({
+            this.state.echo = new Echo({
                 broadcaster: 'socket.io',
                 host: props.hostName + props.port
             });
 
-            window.Echo.channel(props.channel).listen(props.eventName, this.messageReceived.bind(this));
+            this.state.echo.channel(props.channel).listen(props.eventName, this.messageReceived.bind(this));
 
             this.state.ioValid = true;
 
@@ -39,7 +40,7 @@ export default class Chat extends React.Component {
 
     messageReceived(response){
         let data = response.data;
-        if (data.socketId != window.Echo.socketId()){
+        if (data.socketId != this.state.echo.socketId()){
             this.setState(
                 {
                     entries: this.state.entries.concat({author: data.author, text: data.text})
@@ -66,7 +67,7 @@ export default class Chat extends React.Component {
         }
 
         //make the post request
-        axios.post(this.state.postUrl, {author: user, text: value, socketId: window.Echo.socketId(), test: "test"});
+        axios.post(this.state.postUrl, {author: user, text: value, socketId: this.state.echo.socketId(), test: "test"});
 
         var newState = {
             inputValue: "",

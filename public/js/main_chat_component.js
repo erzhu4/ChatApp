@@ -410,7 +410,7 @@ module.exports = g;
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(84);
+exports = module.exports = __webpack_require__(85);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -883,15 +883,15 @@ Emitter.prototype.hasListeners = function(event){
  * Module dependencies.
  */
 
-var keys = __webpack_require__(91);
+var keys = __webpack_require__(92);
 var hasBinary = __webpack_require__(52);
-var sliceBuffer = __webpack_require__(97);
-var after = __webpack_require__(98);
-var utf8 = __webpack_require__(99);
+var sliceBuffer = __webpack_require__(98);
+var after = __webpack_require__(99);
+var utf8 = __webpack_require__(100);
 
 var base64encoder;
 if (global && global.ArrayBuffer) {
-  base64encoder = __webpack_require__(100);
+  base64encoder = __webpack_require__(101);
 }
 
 /**
@@ -949,7 +949,7 @@ var err = { type: 'error', data: 'parser error' };
  * Create a blob api even for blob builder when vendor prefixes exist
  */
 
-var Blob = __webpack_require__(101);
+var Blob = __webpack_require__(102);
 
 /**
  * Encodes a packet.
@@ -3111,7 +3111,7 @@ module.exports = emptyFunction;
 
 var debug = __webpack_require__(2)('socket.io-parser');
 var Emitter = __webpack_require__(4);
-var binary = __webpack_require__(86);
+var binary = __webpack_require__(87);
 var isArray = __webpack_require__(47);
 var isBuf = __webpack_require__(48);
 
@@ -3529,7 +3529,7 @@ function error(msg) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// browser shim for xmlhttprequest module
 
-var hasCORS = __webpack_require__(89);
+var hasCORS = __webpack_require__(90);
 
 module.exports = function (opts) {
   var xdomain = opts.xdomain;
@@ -4014,7 +4014,7 @@ function isBuf(obj) {
  * Module dependencies.
  */
 
-var eio = __webpack_require__(87);
+var eio = __webpack_require__(88);
 var Socket = __webpack_require__(55);
 var Emitter = __webpack_require__(4);
 var parser = __webpack_require__(38);
@@ -4022,7 +4022,7 @@ var on = __webpack_require__(56);
 var bind = __webpack_require__(57);
 var debug = __webpack_require__(2)('socket.io-client:manager');
 var indexOf = __webpack_require__(54);
-var Backoff = __webpack_require__(106);
+var Backoff = __webpack_require__(107);
 
 /**
  * IE6+ hasOwnProperty
@@ -4593,9 +4593,9 @@ Manager.prototype.onreconnect = function () {
  */
 
 var XMLHttpRequest = __webpack_require__(39);
-var XHR = __webpack_require__(90);
-var JSONP = __webpack_require__(102);
-var websocket = __webpack_require__(103);
+var XHR = __webpack_require__(91);
+var JSONP = __webpack_require__(103);
+var websocket = __webpack_require__(104);
 
 /**
  * Export transports.
@@ -4905,7 +4905,7 @@ Polling.prototype.uri = function () {
  * Module requirements.
  */
 
-var isArray = __webpack_require__(96);
+var isArray = __webpack_require__(97);
 
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof Blob === 'function' ||
@@ -4964,7 +4964,7 @@ function hasBinary (obj) {
   return false;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(92).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(93).Buffer))
 
 /***/ }),
 /* 53 */
@@ -5067,7 +5067,7 @@ module.exports = function(arr, obj){
 
 var parser = __webpack_require__(38);
 var Emitter = __webpack_require__(4);
-var toArray = __webpack_require__(105);
+var toArray = __webpack_require__(106);
 var on = __webpack_require__(56);
 var bind = __webpack_require__(57);
 var debug = __webpack_require__(2)('socket.io-client:socket');
@@ -5583,7 +5583,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_chat_jsx__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_chat_list_jsx__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_chat_list_jsx__ = __webpack_require__(82);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5596,6 +5596,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
+window.io = __webpack_require__(83);
 
 var MainChatComponent = function (_React$Component) {
     _inherits(MainChatComponent, _React$Component);
@@ -25085,7 +25087,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-window.io = __webpack_require__(82);
 
 var Chat = function (_React$Component) {
     _inherits(Chat, _React$Component);
@@ -25105,17 +25106,19 @@ var Chat = function (_React$Component) {
             tempUser: {
                 name: null
             },
+            echo: null,
             errorMessage: null,
             ioValid: false
         };
 
+        //init the socket connection
         if (typeof io !== 'undefined') {
-            window.Echo = new __WEBPACK_IMPORTED_MODULE_2_laravel_echo___default.a({
+            _this.state.echo = new __WEBPACK_IMPORTED_MODULE_2_laravel_echo___default.a({
                 broadcaster: 'socket.io',
                 host: props.hostName + props.port
             });
 
-            window.Echo.channel(props.channel).listen(props.eventName, _this.messageReceived.bind(_this));
+            _this.state.echo.channel(props.channel).listen(props.eventName, _this.messageReceived.bind(_this));
 
             _this.state.ioValid = true;
         } else {
@@ -25128,7 +25131,7 @@ var Chat = function (_React$Component) {
         key: 'messageReceived',
         value: function messageReceived(response) {
             var data = response.data;
-            if (data.socketId != window.Echo.socketId()) {
+            if (data.socketId != this.state.echo.socketId()) {
                 this.setState({
                     entries: this.state.entries.concat({ author: data.author, text: data.text })
                 });
@@ -25154,7 +25157,7 @@ var Chat = function (_React$Component) {
             }
 
             //make the post request
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(this.state.postUrl, { author: user, text: value, socketId: window.Echo.socketId(), test: "test" });
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(this.state.postUrl, { author: user, text: value, socketId: this.state.echo.socketId(), test: "test" });
 
             var newState = {
                 inputValue: "",
@@ -26219,6 +26222,101 @@ module.exports = Echo;
 
 /***/ }),
 /* 82 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var ChatList = function (_React$Component) {
+	_inherits(ChatList, _React$Component);
+
+	function ChatList(props) {
+		_classCallCheck(this, ChatList);
+
+		var _this = _possibleConstructorReturn(this, (ChatList.__proto__ || Object.getPrototypeOf(ChatList)).call(this, props));
+
+		_this.state = {
+			chatList: []
+		};
+
+		_this.getList({});
+		return _this;
+	}
+
+	_createClass(ChatList, [{
+		key: 'getList',
+		value: function getList(params) {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_1_axios___default.a.get("/chats", params).then(function (response) {
+				_this2.setState({ chatList: response.data });
+			});
+		}
+	}, {
+		key: 'renderChatList',
+		value: function renderChatList() {
+			var list = this.state.chatList.map(function (chat) {
+				return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'li',
+					{ key: chat.id },
+					chat.name
+				);
+			});
+
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'ul',
+				null,
+				list
+			);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'row' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'col-md-12' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'card' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'card-header' },
+							'Other Chats'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'card-body' },
+							this.renderChatList()
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return ChatList;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["a"] = (ChatList);
+
+/***/ }),
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -26226,7 +26324,7 @@ module.exports = Echo;
  * Module dependencies.
  */
 
-var url = __webpack_require__(83);
+var url = __webpack_require__(84);
 var parser = __webpack_require__(38);
 var Manager = __webpack_require__(49);
 var debug = __webpack_require__(2)('socket.io-client');
@@ -26318,7 +26416,7 @@ exports.Socket = __webpack_require__(55);
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -26400,7 +26498,7 @@ function url (uri, loc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -26416,7 +26514,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(85);
+exports.humanize = __webpack_require__(86);
 
 /**
  * Active `debug` instances.
@@ -26631,7 +26729,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports) {
 
 /**
@@ -26789,7 +26887,7 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -26937,11 +27035,11 @@ exports.removeBlobs = function(data, callback) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-module.exports = __webpack_require__(88);
+module.exports = __webpack_require__(89);
 
 /**
  * Exports parser
@@ -26953,7 +27051,7 @@ module.exports.parser = __webpack_require__(5);
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -27703,7 +27801,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports) {
 
 
@@ -27726,7 +27824,7 @@ try {
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -28145,7 +28243,7 @@ function unloadHandler () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports) {
 
 
@@ -28170,7 +28268,7 @@ module.exports = Object.keys || function keys (obj){
 
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28184,9 +28282,9 @@ module.exports = Object.keys || function keys (obj){
 
 
 
-var base64 = __webpack_require__(93)
-var ieee754 = __webpack_require__(94)
-var isArray = __webpack_require__(95)
+var base64 = __webpack_require__(94)
+var ieee754 = __webpack_require__(95)
+var isArray = __webpack_require__(96)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -29967,7 +30065,7 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30125,7 +30223,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -30215,17 +30313,6 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 95 */
-/***/ (function(module, exports) {
-
-var toString = {}.toString;
-
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
 /* 96 */
 /***/ (function(module, exports) {
 
@@ -30238,6 +30325,17 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 /* 97 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+/* 98 */
 /***/ (function(module, exports) {
 
 /**
@@ -30272,7 +30370,7 @@ module.exports = function(arraybuffer, start, end) {
 
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports) {
 
 module.exports = after
@@ -30306,7 +30404,7 @@ function noop() {}
 
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -30567,7 +30665,7 @@ function noop() {}
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module), __webpack_require__(1)))
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports) {
 
 /*
@@ -30640,7 +30738,7 @@ function noop() {}
 
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -30743,7 +30841,7 @@ module.exports = (function() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -30981,7 +31079,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -30998,7 +31096,7 @@ var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 var NodeWebSocket;
 if (typeof window === 'undefined') {
   try {
-    NodeWebSocket = __webpack_require__(104);
+    NodeWebSocket = __webpack_require__(105);
   } catch (e) { }
 }
 
@@ -31274,13 +31372,13 @@ WS.prototype.check = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports) {
 
 module.exports = toArray
@@ -31299,7 +31397,7 @@ function toArray(list, index) {
 
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports) {
 
 
@@ -31388,67 +31486,6 @@ Backoff.prototype.setJitter = function(jitter){
 };
 
 
-
-/***/ }),
-/* 107 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-var ChatList = function (_React$Component) {
-	_inherits(ChatList, _React$Component);
-
-	function ChatList(props) {
-		_classCallCheck(this, ChatList);
-
-		var _this = _possibleConstructorReturn(this, (ChatList.__proto__ || Object.getPrototypeOf(ChatList)).call(this, props));
-
-		_this.state = {
-			chatList: []
-		};
-
-		_this.getList({});
-		return _this;
-	}
-
-	_createClass(ChatList, [{
-		key: 'getList',
-		value: function getList(params) {
-			var _this2 = this;
-
-			__WEBPACK_IMPORTED_MODULE_1_axios___default.a.get("/chats", params).then(function (response) {
-				_this2.setState({ chatList: response.data });
-			});
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'div',
-				{ className: 'row' },
-				'This is the list component!'
-			);
-		}
-	}]);
-
-	return ChatList;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["a"] = (ChatList);
 
 /***/ })
 /******/ ]);

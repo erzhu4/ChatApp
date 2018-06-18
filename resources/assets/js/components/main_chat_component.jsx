@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Chat from './shared/chat.jsx';
 import ChatList from './shared/chat_list.jsx';
 
+window.io = require('socket.io-client');
+
 export default class MainChatComponent extends React.Component {
 
     constructor(props){

@@ -19,10 +19,25 @@ export default class ChatList extends React.Component {
 		});
 	}
 
+	renderChatList(){
+		var list = this.state.chatList.map((chat) => {
+			return <li key={chat.id}>{chat.name}</li>
+		});
+
+		return <ul>{list}</ul>;
+	}
+
 	render(){
 		return (
 			<div className="row">
-				This is the list component!
+                <div className="col-md-12">
+                    <div className="card">
+                        <div className="card-header">Other Chats</div>
+                        <div className="card-body">
+                        	{this.renderChatList()}
+                        </div>
+                    </div>
+                </div>
 			</div>
 		);
 	}
