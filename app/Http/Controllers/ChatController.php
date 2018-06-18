@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Chat as Chat;
 
 class ChatController extends Controller
 {
@@ -13,7 +16,8 @@ class ChatController extends Controller
      */
     public function index()
     {
-        return "Chat index";
+        $allChats = Chat::all();
+        return $allChats;
     }
 
     /**
@@ -34,6 +38,11 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
+        $params = $request->all();
+        $params['created_by'] = Auth::id();
+
+        $newChat = new Chat($params);
+        $newChat->save();
         return redirect("/");
     }
 

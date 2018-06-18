@@ -9,6 +9,7 @@ export default class Chat extends React.Component {
         super(props);
 
         this.state = {
+            chatId: props.chatId ? props.chatId : 0,
             user: props.user,
             postUrl: props.postUrl,
             entries: [],
@@ -32,7 +33,7 @@ export default class Chat extends React.Component {
             this.state.ioValid = true;
 
         } else {
-            console.log("larave echo server is not running");
+            console.log("Something is not right");
         }
     }
 
@@ -85,10 +86,16 @@ export default class Chat extends React.Component {
         this.setState({tempUser: user});    
     }
 
-    render(){
-        var entriesList = this.state.entries.map((el, idx) => {
+    getEntriesList(){
+        var list = this.state.entries.map((el, idx) => {
             return <li key={idx}>{el.author.name}: {el.text}</li>
         });
+
+        return <ul>{list}</ul>
+    }
+
+    render(){
+        var entriesList = this.getEntriesList();
 
         var userSetup;
 
@@ -105,9 +112,7 @@ export default class Chat extends React.Component {
                         <div className="card-header">{this.state.name}</div>
 
                         <div className="card-body">
-                            <ul>
-                                {entriesList}
-                            </ul>
+                            {entriesList}
                         </div>
                         <div className="card-body">
                             <div style={{color:'red'}}>{this.state.errorMessage}</div>

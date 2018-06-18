@@ -20,9 +20,9 @@ Auth::routes();
 Route::post('/public_chat/store', 'PublicChatController@store')->name('public-chat-store');
 
 // chat
-Route::get('/chat', 'ChatController@index');
-Route::get('/chat/create', 'ChatController@create')->middleware('auth');
-Route::post('/chat/store', 'ChatController@store')->middleware('auth');
+Route::get('/chats', 'ChatController@index');
+Route::get('/chats/create', 'ChatController@create')->middleware('auth');
+Route::post('/chats', 'ChatController@store')->middleware('auth');
 //end chat
 
 

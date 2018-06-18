@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Chat from './shared/chat.jsx';
+import ChatList from './shared/chat_list.jsx';
 
 export default class MainChatComponent extends React.Component {
 
@@ -21,11 +22,6 @@ export default class MainChatComponent extends React.Component {
     }
 
     render() {
-        var chatListView = "Log in now to see list of all chats!";
-
-        if (this.state.auth_user){
-            chatListView = "***List of Chats*****";
-        }
 
         return (
             <div className="container">
@@ -42,7 +38,7 @@ export default class MainChatComponent extends React.Component {
                         />
                     </div>
                     <div className="col-md-4">
-                        {chatListView}
+                        <ChatList />
                     </div>
                 </div>
             </div>
