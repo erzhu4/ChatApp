@@ -24996,9 +24996,7 @@ var Chat = function (_React$Component) {
             entries: [],
             inputValue: "",
             name: props.name ? props.name : "Chat",
-            tempUser: {
-                name: null
-            },
+            tempUser: null,
             echo: null,
             errorMessage: null,
             ioValid: false
@@ -25039,7 +25037,7 @@ var Chat = function (_React$Component) {
             if (value.length == 0 || !this.state.ioValid) return;
 
             //determine what the user is
-            var user = this.state.user ? this.state.user : this.state.tempUser;
+            var user = this.state.user ? this.state.user : { name: this.state.tempUser };
 
             //validate user
             if (!user.name || user.name.length < 1) {
@@ -25067,9 +25065,8 @@ var Chat = function (_React$Component) {
     }, {
         key: 'handleUserNameChange',
         value: function handleUserNameChange(event) {
-            var user = this.state.tempUser;
-            user.name = event.target.value;
-            this.setState({ tempUser: user });
+            var userName = event.target.value;
+            this.setState({ tempUser: userName });
         }
     }, {
         key: 'getEntriesList',

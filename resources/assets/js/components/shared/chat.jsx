@@ -14,9 +14,7 @@ export default class Chat extends React.Component {
             entries: [],
             inputValue: "",
             name: props.name ? props.name : "Chat",
-            tempUser: {
-                name: null
-            },
+            tempUser: null,
             echo: null,
             errorMessage: null,
             ioValid: false
@@ -56,7 +54,7 @@ export default class Chat extends React.Component {
         if (value.length == 0 || !this.state.ioValid) return;
 
         //determine what the user is
-        var user = this.state.user ? this.state.user : this.state.tempUser;
+        var user = this.state.user ? this.state.user : {name: this.state.tempUser};
 
         //validate user
         if (!user.name || user.name.length < 1){
@@ -82,9 +80,8 @@ export default class Chat extends React.Component {
     }
 
     handleUserNameChange(event){
-        var user = this.state.tempUser;
-        user.name = event.target.value;
-        this.setState({tempUser: user});    
+        var userName = event.target.value;
+        this.setState({tempUser: userName});    
     }
 
     getEntriesList(){
