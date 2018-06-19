@@ -1,5 +1,6 @@
 {
     "/js/main_chat_component.js": "/js/main_chat_component.js",
+    "/js/show_chat.js": "/js/show_chat.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css"
 }

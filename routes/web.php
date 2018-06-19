@@ -21,8 +21,10 @@ Route::post('/public_chat/store', 'PublicChatController@store')->name('public-ch
 
 // chat
 Route::get('/chats', 'ChatController@index');
+Route::get('/chats/{id}', 'ChatController@show');
 Route::get('/chats/create', 'ChatController@create')->middleware('auth');
 Route::post('/chats', 'ChatController@store')->middleware('auth');
+Route::post('/private_chat/store/{id}', 'ChatController@privateMessage');
 //end chat
 
 
