@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\MessagePushed;
+use App\Events\ChatCreated;
 
 use App\Chat as Chat;
 
@@ -31,6 +32,7 @@ class ChatController extends Controller
 
         $newChat = new Chat($params);
         $newChat->save();
+        event(new ChatCreated($newChat));
         return redirect("/");
     }
 
