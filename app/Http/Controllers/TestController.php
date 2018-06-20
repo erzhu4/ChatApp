@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client;
 
+use App\MongoModels\Message;
+
 class TestController extends Controller
 {
     /**
@@ -39,6 +41,11 @@ class TestController extends Controller
         //     )
         // );
 
-        return "tested";
+
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+        // $message = \DB::connection('mongodb')->collection('messages')->get();
+        $message = Message::all();
+        return $message;
     }
 }

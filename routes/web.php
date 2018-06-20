@@ -31,6 +31,6 @@ Route::post('/private_chat/store/{id}', 'ChatController@privateMessage');
 Route::get('/test', 'TestController@index')->name('test');
 
 Route::get('/testEvent', function(){
-	event(new MessagePushed("derp"));
-	return "Derp";
+	$message = DB::connection('mongodb')->collection('messages')->get();
+	return $message;
 });
