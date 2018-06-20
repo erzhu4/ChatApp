@@ -16,6 +16,7 @@ class MessagePushed implements ShouldBroadcast
 
     public $data;
     private $channel;
+    
     public function __construct($params)
     {
         $this->data = $params['data'];

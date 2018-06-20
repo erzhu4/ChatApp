@@ -34,7 +34,7 @@ export default class MainChatComponent extends React.Component {
                             postUrl="/public_chat/store"
                             hostName={window.location.hostname}
                             channel="public-chat-channel"
-                            eventName="PublicMessagePushed"
+                            eventName="MessagePushed"
                             port=":6001"
                             name="Public Chat"
                         />
