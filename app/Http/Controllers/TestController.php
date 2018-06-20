@@ -24,8 +24,6 @@ class TestController extends Controller
     public function index()
     {
         // Your Account SID and Auth Token from twilio.com/console
-        // $account_sid = 'AC4f37b45fe0507f9b0e7b2762826a5436';
-        // $auth_token = 'a3f197359d6cc964639e838fbeda62c8';
         // In production, these should be environment variables. E.g.:
         // $auth_token = $_ENV["TWILIO_ACCOUNT_SID"]
 
